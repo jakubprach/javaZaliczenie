@@ -18,6 +18,7 @@ public class StudentFrame extends javax.swing.JFrame {
         initComponents();
         s=new Start();
         equationText.setText(s.equation(id));
+        btnPrevious.setVisible(false);
         
     }
 
@@ -37,6 +38,7 @@ public class StudentFrame extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         resultText = new javax.swing.JLabel();
         btnNext = new javax.swing.JButton();
+        btnPrevious = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -58,28 +60,36 @@ public class StudentFrame extends javax.swing.JFrame {
             }
         });
 
+        btnPrevious.setText("<");
+        btnPrevious.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPreviousActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(bWyswietl)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(resultText, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(31, 31, 31)
-                            .addComponent(jLabel1))))
+                .addComponent(resultText, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31)
+                .addComponent(jLabel1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(btnNext, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(15, 15, 15)
+                .addComponent(btnPrevious, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnNext, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(60, 60, 60)
+                .addComponent(bWyswietl)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(176, Short.MAX_VALUE)
-                .addComponent(equationText, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(137, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(equationText, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(105, 105, 105))
         );
         layout.setVerticalGroup(
@@ -92,7 +102,8 @@ public class StudentFrame extends javax.swing.JFrame {
                 .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bWyswietl)
-                    .addComponent(btnNext))
+                    .addComponent(btnNext)
+                    .addComponent(btnPrevious))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(40, 40, 40)
@@ -110,20 +121,45 @@ public class StudentFrame extends javax.swing.JFrame {
     private void bWyswietlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bWyswietlActionPerformed
         // TODO add your handling code here:
 //        Start s=new Start();
-        if(Integer.parseInt(wynikInput.getText()) != Integer.parseInt(s.getEquationResult(id))){
+        try {
+            if(Integer.parseInt(wynikInput.getText()) != Integer.parseInt(s.getEquationResult(id))){
             resultText.setText("Błąd!");
         }
         else{
             resultText.setText("Dobrze!");
         }
+        } catch (Exception e) {
+            resultText.setText("Zły format wyniku!!!");
+        }
+        
         
     }//GEN-LAST:event_bWyswietlActionPerformed
 
     private void btnNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNextActionPerformed
         // TODO add your handling code here:
+
+            wynikInput.setText("");
+        try {
         id += 1;
         equationText.setText(s.equation(id));
+        }
+        catch (Exception e){
+        resultText.setText("To już wszystkie pytania!");
+        }
+        
+        if(id > 1){
+            btnPrevious.setVisible(true);
+        }
     }//GEN-LAST:event_btnNextActionPerformed
+
+    private void btnPreviousActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPreviousActionPerformed
+        // TODO add your handling code here:
+        id-=1;
+        equationText.setText(s.equation(id));
+        if(id == 1){
+            btnPrevious.setVisible(false);
+        }
+    }//GEN-LAST:event_btnPreviousActionPerformed
 
     /**
      * @param args the command line arguments
@@ -163,6 +199,7 @@ public class StudentFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bWyswietl;
     private javax.swing.JButton btnNext;
+    private javax.swing.JButton btnPrevious;
     private javax.swing.JLabel equationText;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
