@@ -18,6 +18,7 @@ import javax.persistence.Table;
  * @author jakub
  */
 @NamedQueries({
+    @NamedQuery(name = "Equation.findAll", query = "SELECT e FROM Equation e"),
     @NamedQuery(name = "Equation.findById", query = "SELECT e FROM Equation e WHERE e.id = :id"),
 })
 @Entity

@@ -92,6 +92,16 @@ public class Start {
 
         }
          
+         public int getAllEquations() {
+            EntityManager em=getEntityManager();
+            //metoda .findall zostala wygenerowana przez konstruktor w pliku student.java
+            TypedQuery<Equation> q = em.createNamedQuery("Equation.findAll",Equation.class);
+            List<Equation> rezultat=q.getResultList();
+            System.out.print(rezultat.size());  
+            return rezultat.size();
+            
+        }
+         
         public void studenci(String imie, String nazwisko) {
             EntityManager em=getEntityManager();
             TypedQuery<Student> q = em.createNamedQuery("Student.findByFirstLastName",Student.class);

@@ -18,8 +18,7 @@ public class StudentFrame extends javax.swing.JFrame {
         initComponents();
         s=new Start();
         equationText.setText(s.equation(id));
-        btnPrevious.setVisible(false);
-        
+        btnPrevious.setVisible(false);    
     }
 
     /**
@@ -137,10 +136,17 @@ public class StudentFrame extends javax.swing.JFrame {
 
     private void btnNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNextActionPerformed
         // TODO add your handling code here:
-
-            wynikInput.setText("");
+        
+        wynikInput.setText("");
+        resultText.setText("");
         try {
         id += 1;
+        if(id == s.getAllEquations()){
+            btnNext.setVisible(false);
+        }
+        else{
+            btnNext.setVisible(true);
+        }
         equationText.setText(s.equation(id));
         }
         catch (Exception e){
@@ -154,7 +160,15 @@ public class StudentFrame extends javax.swing.JFrame {
 
     private void btnPreviousActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPreviousActionPerformed
         // TODO add your handling code here:
+        wynikInput.setText("");
+        resultText.setText("");
         id-=1;
+        if(id == s.getAllEquations()){
+            btnNext.setVisible(false);
+        }
+        else{
+            btnNext.setVisible(true);
+        }
         equationText.setText(s.equation(id));
         if(id == 1){
             btnPrevious.setVisible(false);
