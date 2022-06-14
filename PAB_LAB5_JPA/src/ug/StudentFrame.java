@@ -9,14 +9,16 @@ package ug;
  * @author domin
  */
 public class StudentFrame extends javax.swing.JFrame {
-
+    int id = 1;
     /**
      * Creates new form StudentFrame
      */
     public StudentFrame() {
+        
         initComponents();
         s=new Start();
-        equationText.setText(s.equation(1));
+        equationText.setText(s.equation(id));
+        
     }
 
     /**
@@ -30,13 +32,29 @@ public class StudentFrame extends javax.swing.JFrame {
 
         bWyswietl = new javax.swing.JButton();
         equationText = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        wynikInput = new javax.swing.JTextArea();
+        jLabel1 = new javax.swing.JLabel();
+        resultText = new javax.swing.JLabel();
+        btnNext = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        bWyswietl.setText("Wyświetl");
+        bWyswietl.setText("Sprawdź wynik");
         bWyswietl.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bWyswietlActionPerformed(evt);
+            }
+        });
+
+        wynikInput.setColumns(20);
+        wynikInput.setRows(5);
+        jScrollPane1.setViewportView(wynikInput);
+
+        btnNext.setText(">");
+        btnNext.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNextActionPerformed(evt);
             }
         });
 
@@ -44,23 +62,46 @@ public class StudentFrame extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(40, 40, 40)
-                .addComponent(bWyswietl)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(bWyswietl)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(resultText, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(31, 31, 31)
+                            .addComponent(jLabel1))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addGap(129, 129, 129)
+                .addGap(20, 20, 20)
+                .addComponent(btnNext, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(176, Short.MAX_VALUE)
                 .addComponent(equationText, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(152, Short.MAX_VALUE))
+                .addGap(105, 105, 105))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(71, 71, 71)
+                .addGap(61, 61, 61)
                 .addComponent(equationText, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(59, 59, 59)
-                .addComponent(bWyswietl)
-                .addContainerGap(115, Short.MAX_VALUE))
+                .addGap(41, 41, 41)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(bWyswietl)
+                    .addComponent(btnNext))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(40, 40, 40)
+                        .addComponent(jLabel1)
+                        .addContainerGap(36, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(resultText, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())))
         );
 
         pack();
@@ -69,9 +110,20 @@ public class StudentFrame extends javax.swing.JFrame {
     private void bWyswietlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bWyswietlActionPerformed
         // TODO add your handling code here:
 //        Start s=new Start();
-        
+        if(Integer.parseInt(wynikInput.getText()) != Integer.parseInt(s.getEquationResult(id))){
+            resultText.setText("Błąd!");
+        }
+        else{
+            resultText.setText("Dobrze!");
+        }
         
     }//GEN-LAST:event_bWyswietlActionPerformed
+
+    private void btnNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNextActionPerformed
+        // TODO add your handling code here:
+        id += 1;
+        equationText.setText(s.equation(id));
+    }//GEN-LAST:event_btnNextActionPerformed
 
     /**
      * @param args the command line arguments
@@ -110,7 +162,12 @@ public class StudentFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bWyswietl;
+    private javax.swing.JButton btnNext;
     private javax.swing.JLabel equationText;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel resultText;
+    private javax.swing.JTextArea wynikInput;
     // End of variables declaration//GEN-END:variables
     private Start s;
 }
