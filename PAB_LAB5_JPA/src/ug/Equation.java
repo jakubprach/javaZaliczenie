@@ -9,12 +9,17 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 /**
  *
  * @author jakub
  */
+@NamedQueries({
+    @NamedQuery(name = "Equation.findById", query = "SELECT e FROM Equation e WHERE e.id = :id"),
+})
 @Entity
 @Table(name = "Equation")
 public class Equation implements Serializable {

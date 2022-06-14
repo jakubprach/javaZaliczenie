@@ -57,13 +57,6 @@ public class Start {
             return emf.createEntityManager();
         }
 
-         public void studenci() {
-            EntityManager em=getEntityManager();
-            //metoda .findall zostala wygenerowana przez konstruktor w pliku student.java
-            TypedQuery<Student> q = em.createNamedQuery("Student.findAll",Student.class);
-            List<Student> rezultat=q.getResultList();
-            System.out.println(rezultat);
-        }
          
          public void studenci(JTextArea tDane) {
             EntityManager em=getEntityManager();
@@ -73,13 +66,16 @@ public class Start {
             tDane.setText(rezultat.toString());
         }
          
-         public void studenci(Integer index) {
+         public void equation(Integer index) {
             EntityManager em=getEntityManager();
             //metoda .findbyIndexNumber zostala wygenerowana przez konstruktor w pliku student.java
-            TypedQuery<Student> q = em.createNamedQuery("Student.findByIndexNumber",Student.class);
-            q.setParameter("indexNumber", index);
-            List<Student> rezultat=q.getResultList();
-            System.out.println(rezultat);
+            TypedQuery<Equation> q = em.createNamedQuery("Equation.findById",Equation.class);
+            q.setParameter("id", index);
+            List<Equation> rezultat=q.getResultList();
+            
+            for(Equation student: rezultat){
+                System.out.println(student.getEquation());
+            }
         }
          
         public void studenci(String imie, String nazwisko) {
@@ -88,7 +84,8 @@ public class Start {
             q.setParameter("firstName", imie);
             q.setParameter("lastName", nazwisko);
             List<Student> rezultat=q.getResultList();
-            System.out.println(rezultat);
+            
+            
         }
     /**
      * @param args the command line arguments
@@ -102,8 +99,8 @@ public class Start {
         Start start=new Start();
         start.zapisz(g);
         //start.zapisz(s);
-        start.studenci();
-        start.studenci(275306);
+        //start.studenci();
+        //start.studenci(275306);
         start.studenci("Dominik","Deptuła");
         
         
