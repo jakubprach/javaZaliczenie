@@ -66,16 +66,17 @@ public class Start {
             tDane.setText(rezultat.toString());
         }
          
-         public void equation(Integer index) {
+         public String equation(Integer index) {
             EntityManager em=getEntityManager();
             //metoda .findbyIndexNumber zostala wygenerowana przez konstruktor w pliku student.java
             TypedQuery<Equation> q = em.createNamedQuery("Equation.findById",Equation.class);
             q.setParameter("id", index);
             List<Equation> rezultat=q.getResultList();
             
-            for(Equation student: rezultat){
-                System.out.println(student.getEquation());
-            }
+            Equation first = rezultat.get(0);
+            
+            return first.getEquation();
+
         }
          
         public void studenci(String imie, String nazwisko) {
